@@ -5,20 +5,6 @@ namespace UnderWatch
 {
 	public class battleTag
 	{
-		public string username { get; set; }
-		public string level { get; set; }
-		public Games games { get; set; }
-		public Playtime playtime { get; set; }
-		public string avatar { get; set; }
-		public Competitive2 competitive { get; set; }
-		public string levelFrame { get; set; }
-		public string star { get; set; }
-
-		public battleTag()
-		{
-			
-		}
-
 		public class Quick
 		{
 			public string wins { get; set; }
@@ -27,7 +13,7 @@ namespace UnderWatch
 		public class Competitive
 		{
 			public string wins { get; set; }
-			public string lost { get; set; }
+			public int lost { get; set; }
 			public string played { get; set; }
 		}
 
@@ -47,6 +33,23 @@ namespace UnderWatch
 		{
 			public string rank { get; set; }
 			public string rank_img { get; set; }
+		}
+
+		public class Data
+		{
+			public string username { get; set; }
+			public int level { get; set; }
+			public Games games { get; set; }
+			public Playtime playtime { get; set; }
+			public string avatar { get; set; }
+			public Competitive2 competitive { get; set; }
+			public string levelFrame { get; set; }
+			public string star { get; set; }
+		}
+
+		public class RootObject
+		{
+			public Data data { get; set; }
 		}
 
 	}

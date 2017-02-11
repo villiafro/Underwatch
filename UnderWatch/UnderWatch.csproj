@@ -36,6 +36,12 @@
     <EmbeddedResource Include="Achievements.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Stats.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Heros.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -55,6 +61,16 @@
     <Compile Include="Achievements.xaml.cs">
       <DependentUpon>Achievements.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Stats.xaml.cs">
+      <DependentUpon>Stats.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Heros.xaml.cs">
+      <DependentUpon>Heros.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stat.cs" />
+    <Compile Include="Models\stats.cs" />
+    <Compile Include="Models\hero.cs" />
+    <Compile Include="Models\heros.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http">

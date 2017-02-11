@@ -9,16 +9,18 @@ using Newtonsoft.Json.Linq;
 
 namespace UnderWatch
 {
+	//https://api.lootbox.eu/pc/eu/DYN4MIC-21500/achievements
+
 	public class achievements
 	{
-		private achievement _achieve;
+		private achievement.RootObject _achieve;
 
 		public achievements()
 		{
-			_achieve = new achievement();
+			_achieve = new achievement.RootObject();
 		}
 
-		public achievement getAchievements()
+		public achievement.RootObject getAchievements()
 		{
 			return _achieve;
 		}
@@ -30,13 +32,7 @@ namespace UnderWatch
 
 			if (apiRequest != null)
 			{
-
-				_achieve = JsonConvert.DeserializeObject<achievement>(apiRequest);
-				foreach (var row in _achieve.achievements)
-				{
-					Debug.WriteLine(row);
-				}
-
+				_achieve = JsonConvert.DeserializeObject<achievement.RootObject>(apiRequest);
 			}
 			else
 			{
