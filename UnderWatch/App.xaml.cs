@@ -24,8 +24,19 @@ namespace UnderWatch
 			var achieveNavigationPage = new NavigationPage(achievePage);
 			achieveNavigationPage.Title = "Achievements";
 
+			Stats statsPage = new Stats();
+			var statsNavigationPage = new NavigationPage(statsPage);
+			statsNavigationPage.Title = "Stats";
+
+			Heros herosPage = new Heros();
+			var herosNavigationPage = new NavigationPage(herosPage);
+			herosNavigationPage.Title = "Heros";
+
+
 			tabbedPage.Children.Add(profileNavigationPage);
 			tabbedPage.Children.Add(achieveNavigationPage);
+			tabbedPage.Children.Add(statsNavigationPage);
+			tabbedPage.Children.Add(herosNavigationPage);
 
 			MainPage = content;
 		}

@@ -95,9 +95,10 @@ namespace UnderWatch
 
 			_battle = battle;
 
-			Content = new StackLayout
+			var layout = new StackLayout
 			{
 				VerticalOptions = LayoutOptions.Start,
+				Orientation = StackOrientation.Vertical,
 				Spacing = 10,
 				Margin = 30,
 				Children =
@@ -129,12 +130,31 @@ namespace UnderWatch
 					}
 				}
 			};
+
+			var scrollView = new ScrollView { Content = layout };
+
+			Content = scrollView;
 		}
 
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
 			fillProfile();
+		}
+
+		protected override void OnDisappearing()
+		{
+			base.OnDisappearing();
+
+			_profileUsername.Text = "Username: ";
+			_profileLevel.Text = "Level: ";
+			_profileRank.Text = "Rank: ";
+			_profilePlayQuick.Text = "Playtime quick: ";
+			_profileQuickWin.Text = "Quick wins: ";
+			_profilePlayComp.Text = "Playtime competitive: ";
+			_profileCompWin.Text = "Competitive wins: ";
+			_profileCompLost.Text = "Competitive lost: ";
+			_profileCompPlay.Text = "Competitive played: ";
 		}
 
 		public void fillProfile()
