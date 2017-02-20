@@ -20,7 +20,7 @@ namespace UnderWatch
 
 		private Image _underwatchImage = new Image()
 		{
-			Source = "overwatch.png"		
+			Source = "overwatchNew.png"		
 		};
 
 		private Label _underwatchGreet = new Label()

@@ -17,6 +17,7 @@ namespace UnderWatch
 			InitializeComponent();
 			_achieve = new achievements();
 			_person = new personalData();
+			fillPickers();
 
 			Title = "Achievements";
 			BackgroundColor = Color.FromRgb(40, 52, 75);

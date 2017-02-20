@@ -15,7 +15,7 @@ namespace UnderWatch
 		{
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
-			Text = "Username: ",
+			TextColor = Color.White,
 			FontSize = 20,
 			FontAttributes = FontAttributes.Bold
 		};
@@ -24,28 +24,41 @@ namespace UnderWatch
 		{
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
-			Text = "Level: ",
-			FontSize = 10
+			TextColor = Color.White,
+			FontSize = 20,
+			Margin = new Thickness(0, -95, 0, 90 )
 		};
 
-		private Image _profileLevelFrame = new Image() { };
-		private Image _profileStar = new Image() { };
+		private Image _profileLevelFrame = new Image()
+		{
+			Margin = -20
+		};
+
+		private Image _profileStar = new Image()
+		{
+			Margin = new Thickness(0,-35,0,0)
+		};
 
 		private Label _profileRank = new Label()
 		{
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
 			Text = "Rank: ",
-			FontSize = 10
+			TextColor = Color.White,
+			FontSize = 20
 		};
 
-		private Image _profileRankImg = new Image() { };
+		private Image _profileRankImg = new Image() 
+		{ 
+			Margin = -20
+		};
 
 		private Label _profilePlayQuick = new Label()
 		{
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
 			Text = "Playtime quick: ",
+			TextColor = Color.White,
 			FontSize = 10
 		};
 
@@ -54,6 +67,7 @@ namespace UnderWatch
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
 			Text = "Quick wins: ",
+			TextColor = Color.White,
 			FontSize = 10
 		};
 
@@ -62,6 +76,7 @@ namespace UnderWatch
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
 			Text = "Playtime competitive: ",
+			TextColor = Color.White,
 			FontSize = 10
 		};
 
@@ -70,6 +85,7 @@ namespace UnderWatch
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
 			Text = "Competitive wins: ",
+			TextColor = Color.White,
 			FontSize = 10
 		};
 
@@ -78,6 +94,7 @@ namespace UnderWatch
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
 			Text = "Competitive lost: ",
+			TextColor = Color.White,
 			FontSize = 10
 		};
 
@@ -86,6 +103,7 @@ namespace UnderWatch
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
 			Text = "Competitive played: ",
+			TextColor = Color.White,
 			FontSize = 10
 		};
 
@@ -106,36 +124,140 @@ namespace UnderWatch
 				Children =
 				{
 					_profileImage,
-					new StackLayout()
-					{
-						Children =
-						{
-							_profileUsername,
-							_profileLevel,
-							_profileLevelFrame,
-							_profileStar,
-							_profileRank,
-							_profileRankImg
-						}
-					},
-					new StackLayout()
-					{
-						Children =
-						{
-							_profilePlayQuick,
-							_profileQuickWin,
-							_profilePlayComp,
-							_profileCompWin,
-							_profileCompLost,
-							_profileCompPlay
-						}
-					}
+					_profileUsername,
+					levelrank(),
+					content()
 				}
 			};
 
 			var scrollView = new ScrollView { Content = layout };
 
 			Content = scrollView;
+		}
+
+		/**
+		 * Put Level and Rank images up into grid
+		 * */
+		private Grid levelrank()
+		{
+			Grid levelRank = new Grid()
+			{
+				VerticalOptions = LayoutOptions.FillAndExpand,
+				RowDefinitions =
+						{
+							new RowDefinition { Height = GridLength.Auto },
+							new RowDefinition { Height = GridLength.Auto },
+							new RowDefinition { Height = GridLength.Auto }
+						},
+				ColumnDefinitions =
+						{
+							new ColumnDefinition { Width = new GridLength(50, GridUnitType.Star)},
+							new ColumnDefinition { Width = new GridLength(50, GridUnitType.Star)}
+						}
+
+			};
+
+			levelRank.Children.Add(_profileLevelFrame, 0, 0);
+			levelRank.Children.Add(_profileStar, 0, 1);
+			levelRank.Children.Add(_profileLevel, 0, 2);
+
+			levelRank.Children.Add(_profileRankImg, 1, 0);
+			levelRank.Children.Add(_profileRank, 1, 1);
+
+			return levelRank;
+		}
+
+		/**
+		 * Put Content up into frames and into grid
+		 * */
+		private Grid content()
+		{
+
+			Frame playQuick = new Frame()
+			{
+				Content = _profilePlayQuick,
+				OutlineColor = Color.Silver,
+				BackgroundColor = Color.FromHex("485F89"),
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				HorizontalOptions = LayoutOptions.Center,
+				HasShadow = true
+			};
+
+			Frame quickWin = new Frame()
+			{
+				Content = _profileQuickWin,
+				OutlineColor = Color.Silver,
+				BackgroundColor = Color.FromHex("485F89"),
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				HorizontalOptions = LayoutOptions.Center,
+				HasShadow = true
+			};
+
+			Frame playComp = new Frame()
+			{
+				Content = _profilePlayComp,
+				OutlineColor = Color.Silver,
+				BackgroundColor = Color.FromHex("485F89"),
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				HorizontalOptions = LayoutOptions.Center,
+				HasShadow = true
+			};
+
+			Frame compWin = new Frame()
+			{
+				Content = _profileCompWin,
+				OutlineColor = Color.Silver,
+				BackgroundColor = Color.FromHex("485F89"),
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				HorizontalOptions = LayoutOptions.Center,
+				HasShadow = true
+			};
+
+			Frame compLost = new Frame()
+			{
+				Content = _profileCompLost,
+				OutlineColor = Color.Silver,
+				BackgroundColor = Color.FromHex("485F89"),
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				HorizontalOptions = LayoutOptions.Center,
+				HasShadow = true
+			};
+
+			Frame compPlay = new Frame()
+			{
+				Content = _profileCompPlay,
+				OutlineColor = Color.Silver,
+				BackgroundColor = Color.FromHex("485F89"),
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				HorizontalOptions = LayoutOptions.Center,
+				HasShadow = true
+			};
+
+			Grid plays = new Grid()
+			{
+				VerticalOptions = LayoutOptions.FillAndExpand,
+				RowDefinitions =
+						{
+							new RowDefinition { Height = GridLength.Auto },
+							new RowDefinition { Height = GridLength.Auto },
+							new RowDefinition { Height = GridLength.Auto }
+						},
+				ColumnDefinitions =
+						{
+							new ColumnDefinition { Width = new GridLength(50, GridUnitType.Star)},
+							new ColumnDefinition { Width = new GridLength(50, GridUnitType.Star)}
+						}
+
+			};
+
+			plays.Children.Add(playQuick, 0, 0);
+			plays.Children.Add(quickWin, 1, 0);
+			plays.Children.Add(playComp, 0, 1);
+			plays.Children.Add(compWin, 1, 1);
+			plays.Children.Add(compLost, 0, 2);
+			plays.Children.Add(compPlay, 1, 2);
+
+			return plays;
 		}
 
 		protected override void OnAppearing()
@@ -152,8 +274,8 @@ namespace UnderWatch
 			var data = _battle.getBattleData();
 
 			_profileImage.Source = data.avatar;
-			_profileUsername.Text = "Username: " + data.username;
-			_profileLevel.Text = "Level: " + data.level;
+			_profileUsername.Text = data.username;
+			_profileLevel.Text = data.level.ToString();
 			_profileLevelFrame.Source = data.levelFrame;
 			_profileStar.Source = data.star;
 			_profileRank.Text = "Rank: " + data.competitive.rank;

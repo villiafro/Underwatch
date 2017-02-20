@@ -19,7 +19,7 @@ namespace UnderWatch
 			_person = new personalData();
 			fillPickers();
 
-			Title = "Heros";
+			Title = "Heroes";
 			BackgroundColor = Color.FromRgb(40, 52, 75);
 
 			listview.BackgroundColor = Color.FromRgb(40, 52, 75);
@@ -50,7 +50,7 @@ namespace UnderWatch
 			}
 			else
 			{
-				listview.ItemsSource = _heros.getQuick();
+				listview.ItemsSource = _heros.getComp();
 			}
 		}
 
