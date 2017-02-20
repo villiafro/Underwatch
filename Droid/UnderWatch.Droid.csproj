@@ -67,6 +67,12 @@
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable\overwatch.png" />
+    <AndroidResource Include="Resources\drawable\achieve.png" />
+    <AndroidResource Include="Resources\drawable\mask2.png" />
+    <AndroidResource Include="Resources\drawable\OverwatchEM.png" />
+    <AndroidResource Include="Resources\drawable\stats.png" />
+    <AndroidResource Include="Resources\drawable\user.png" />
+    <AndroidResource Include="Resources\drawable\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

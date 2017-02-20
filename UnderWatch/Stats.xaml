@@ -1,5 +1,34 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="UnderWatch.Stats">
-	<ContentPage.Content>
-	</ContentPage.Content>
+<ContentPage	xmlns="http://xamarin.com/schemas/2014/forms" 
+  				xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+  				x:Class="UnderWatch.Stats" 
+  				Title="Statistics">
+	<StackLayout>
+		<Picker	x:Name="Picker"
+				VerticalOptions = "CenterAndExpand"
+				Margin="10"/>
+    	<ActivityIndicator	x:Name="Spinner"
+             				Color = "White"
+							Margin="10"/>
+		<ListView 	x:Name="listview"
+					ItemSelected="Listview_OnItemSelected"
+					HasUnevenRows="true">
+		 	<ListView.ItemTemplate >
+		        <DataTemplate>
+		         	<ViewCell>
+			            <Grid Padding="10,5">
+				        	<Grid.RowDefinitions>
+				            	<RowDefinition Height="*"></RowDefinition>
+				           	</Grid.RowDefinitions>
+			            <Label	Grid.Row="0"
+								Text="{Binding .}"
+			                	FontAttributes="Bold"
+			                	FontSize="Medium"
+			                	TextColor="White"/>
+			           </Grid>
+					</ViewCell>
+	   			</DataTemplate>
+	    	</ListView.ItemTemplate>
+		</ListView>
+	</StackLayout>
 </ContentPage>

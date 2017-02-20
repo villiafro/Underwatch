@@ -13,7 +13,7 @@ namespace UnderWatch
 {
 	public class battleTags
 	{
-		//https://api.lootbox.eu/pc/eu/DYN4MIC-21500/profile
+		
 
 		private battleTag.RootObject _battleData;
 
@@ -27,6 +27,9 @@ namespace UnderWatch
 			return _battleData.data;
 		}
 
+		/**
+		 * Requesting json from API: https://api.lootbox.eu/pc/eu/DYN4MIC-21500/profile
+		 * */
 		public async Task fillProfile(string _apiString)
 		{
 			HttpClient client = new HttpClient();

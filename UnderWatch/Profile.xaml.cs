@@ -95,6 +95,8 @@ namespace UnderWatch
 
 			_battle = battle;
 
+			BackgroundColor = Color.FromRgb(40, 52, 75);
+
 			var layout = new StackLayout
 			{
 				VerticalOptions = LayoutOptions.Start,
@@ -142,38 +144,26 @@ namespace UnderWatch
 			fillProfile();
 		}
 
-		protected override void OnDisappearing()
-		{
-			base.OnDisappearing();
-
-			_profileUsername.Text = "Username: ";
-			_profileLevel.Text = "Level: ";
-			_profileRank.Text = "Rank: ";
-			_profilePlayQuick.Text = "Playtime quick: ";
-			_profileQuickWin.Text = "Quick wins: ";
-			_profilePlayComp.Text = "Playtime competitive: ";
-			_profileCompWin.Text = "Competitive wins: ";
-			_profileCompLost.Text = "Competitive lost: ";
-			_profileCompPlay.Text = "Competitive played: ";
-		}
-
+		/**
+		 * Fill page with data collected
+		 * */
 		public void fillProfile()
 		{
 			var data = _battle.getBattleData();
 
 			_profileImage.Source = data.avatar;
-			_profileUsername.Text += data.username;
-			_profileLevel.Text += data.level;
+			_profileUsername.Text = "Username: " + data.username;
+			_profileLevel.Text = "Level: " + data.level;
 			_profileLevelFrame.Source = data.levelFrame;
 			_profileStar.Source = data.star;
-			_profileRank.Text += data.competitive.rank;
+			_profileRank.Text = "Rank: " + data.competitive.rank;
 			_profileRankImg.Source = data.competitive.rank_img;
-			_profilePlayQuick.Text += data.playtime.quick;
-			_profileQuickWin.Text += data.games.quick.wins;
-			_profilePlayComp.Text += data.playtime.competitive;
-			_profileCompWin.Text += data.games.competitive.wins;
-			_profileCompLost.Text += data.games.competitive.lost;
-			_profileCompPlay.Text += data.games.competitive.played;
+			_profilePlayQuick.Text = "Playtime quick: " + data.playtime.quick;
+			_profileQuickWin.Text = "Quick wins: " + data.games.quick.wins;
+			_profilePlayComp.Text = "Playtime competitive: " + data.playtime.competitive;
+			_profileCompWin.Text = "Competitive wins: " + data.games.competitive.wins;
+			_profileCompLost.Text = "Competitive lost: " + data.games.competitive.lost;
+			_profileCompPlay.Text = "Competitive played: " + data.games.competitive.played;
 		}
 	}
 }

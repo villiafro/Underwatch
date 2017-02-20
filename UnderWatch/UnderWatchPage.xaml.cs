@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace UnderWatch
 {
@@ -15,6 +16,7 @@ namespace UnderWatch
 	{
 		private battleTags _battle;
 		private TabbedPage _tab;
+		private personalData _person;
 
 		private Image _underwatchImage = new Image()
 		{
@@ -25,6 +27,7 @@ namespace UnderWatch
 		{
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
+			TextColor = Color.FromHex("f0edf2"),
 			Text = "Underwatch",
 			FontSize = 40,
 			FontAttributes = FontAttributes.Bold
@@ -34,6 +37,7 @@ namespace UnderWatch
 		{
 			HorizontalOptions = LayoutOptions.Center,
 			HorizontalTextAlignment = TextAlignment.Center,
+			TextColor = Color.FromHex("f0edf2"),
 			Text = "Enter Overwatch battle tag",
 			FontSize = 20
 		};
@@ -67,7 +71,8 @@ namespace UnderWatch
 
 		private ActivityIndicator _progressBar = new ActivityIndicator
 		{
-			IsRunning = false
+			IsRunning = false,
+			Color = Color.White
 		};
 
 		private Label _underwatchResult = new Label()
@@ -76,6 +81,13 @@ namespace UnderWatch
 			HorizontalTextAlignment = TextAlignment.Center,
 			Text = string.Empty,
 			TextColor = Color.Red,
+		};
+
+		private Button _pathNotes = new Button()
+		{
+			Text = "Path Notes",
+			BackgroundColor = Color.White,
+			TextColor = Color.Gray
 		};
 
 		private void fillPickers()
@@ -97,21 +109,24 @@ namespace UnderWatch
 			_regionPicker.SelectedIndex = 0;
 		}
 
-		public UnderWatchPage(battleTags battle, TabbedPage tab)
+		public UnderWatchPage(personalData person, TabbedPage tab, battleTags battle)
 		{
 			InitializeComponent();
 
+			Title = "Search";
+
 			_battle = battle;
 			_tab = tab;
+			_person = person;
 
-			BackgroundColor = Color.White;
-			Title = "UnderWatch";
+			BackgroundColor = BackgroundColor = Color.FromRgb(40, 52, 75);
 
 			fillPickers();
 
-			Content = new StackLayout
+			var layout = new StackLayout
 			{
 				VerticalOptions = LayoutOptions.Start,
+				Orientation = StackOrientation.Vertical,
 				Spacing = 10,
 				Margin = 30,
 				Children =
@@ -130,16 +145,48 @@ namespace UnderWatch
 						}
 					},
 					_searchButton,
+					_pathNotes,
 					_progressBar,
 					_underwatchResult
+
 				}
 			};
 
+			var scrollView = new ScrollView { Content = layout };
+			Content = scrollView;
+
+			_pathNotes.Clicked += displayPatchNotes;
 			_searchButton.Clicked += displayProfile;
 			_underwatchEntry.Completed += displayProfile;
 		}
 
-		private async void displayProfile(object sender, EventArgs e)
+		/**
+		 * Load content for Patch Notes page and navigate
+		 * */
+		private async void displayPatchNotes(object sender, EventArgs e)
+		{
+			_progressBar.IsRunning = true;
+			_pathNotes.IsEnabled = false;
+
+			patchNotes patch = new patchNotes();
+			await patch.fillNotes();
+			foreach (var note in patch.getNotes().patchNotes)
+			{
+				string output = Regex.Replace(note.detail, "<[^>]*>", string.Empty);
+				output = Regex.Replace(output, @"^\s*$\n", string.Empty, RegexOptions.Multiline);
+
+				note.detail = output;
+			}
+			await this.Navigation.PushAsync(new Patch(patch));
+
+			_pathNotes.IsEnabled = true;
+			_progressBar.IsRunning = false;
+		}
+
+		/**
+		 * Load content for Profile page and navigate
+		 * */
+		private async void displayProfile(object s, EventArgs e)
 		{
 			_progressBar.IsRunning = true;
 			_searchButton.IsEnabled = false;
@@ -147,13 +194,15 @@ namespace UnderWatch
 
 			if (_underwatchEntry.Text != "")
 			{
-				var _apiString = "https://api.lootbox.eu/" + _platformPicker.Items[_platformPicker.SelectedIndex] + "/" + _regionPicker.Items[_regionPicker.SelectedIndex] + "/" + _underwatchEntry.Text + "/profile";
+				_person.setPersonalData(_underwatchEntry.Text, _platformPicker.Items[_platformPicker.SelectedIndex], _regionPicker.Items[_regionPicker.SelectedIndex]);
+
+				var _apiString = "https://api.lootbox.eu/" + _person.getPlatform() + "/" + _person.getRegion() + "/" + _person.getTag() + "/profile";
 
 				await _battle.fillProfile(_apiString);
 
 				if (_battle.getBattleData() != null)
 				{
-					App.Current.MainPage = _tab;
+					await this.Navigation.PushAsync(_tab);
 				}
 				else
 				{
@@ -167,8 +216,8 @@ namespace UnderWatch
 
 			_progressBar.IsRunning = false;
 			_searchButton.IsEnabled = true;
+			_underwatchEntry.Text = "";
 		}
-
 
 	}
 }
